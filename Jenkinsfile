@@ -65,6 +65,7 @@ pipeline{
         // open you pom.xml file and fill the required fields un pipeline syntax like group id etc and under repository give the repository name that you have created i.e DemoReleaseApp
         // under artifact gave ArtifactId from pom.xml, Type: jar,  File: target/Uber.jar
         
+        // now install a plugin named Pipeline Utility Steps so it will automatically update the version of jar file when ever new version is pushed to github
         stage('Upload War File Into Nexus Repository'){
             steps{
                 script{
@@ -84,12 +85,12 @@ pipeline{
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
                             repository: 'DemoReleaseApp',  //if you choose SNAPSHOT version then 1st create a repo as DemoSNAPSHOT in nexus and here give this name
-                            version: '1.0.1' // "${readPomVersion.version}"
+                            version: '1.0.0' // "${readPomVersion.version}"
                 }
             }
         }
 
-        // now install a plugin named Pipeline Utility Steps so it will automatically update the version of jar file when ever new version is pushed to github
+        
 
         stage('Docker Image Build'){
             steps{
